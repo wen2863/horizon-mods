@@ -1,0 +1,54 @@
+id = "accel_torch"
+kind = "native-mod"
+name = "加速火把"
+summary = "仿 Torcherino 的三档加速火把：右键调范围与速度（100%~640000%），三档各有独立外观与粒子。"
+description = """A toolkit of three accelerating torches for Horizon, inspired by [Torcherino](https://modrinth.com/mod/torcherino). Written in Rust as a native mod: original code and textures, no assets or code taken from the original.
+
+## The three tiers
+
+| Tier | Block | Speed steps | Largest area |
+| --- | --- | --- | --- |
+| Accel Torch | `accel_torch:accel_torch` | 100% / 200% / 300% / 400% | 3x3x3 |
+| Advanced Accel Torch | `accel_torch:advanced_accel_torch` | 4000% / 8000% / 12000% / 16000% | 9x9x9 |
+| Super Accel Torch | `accel_torch:super_accel_torch` | 160000% / 320000% / 480000% / 640000% | 27x27x27 |
+
+A percentage is how many extra random ticks each block in the area gets per tick: 100% means one extra `randomTick` per block per tick (vanilla's own chance is 3/4096, so about 1365 times faster), 40000% means 400 extra calls.
+
+## Using it
+
+- Right-click a torch to open its panel: X, Y and Z size (odd numbers, the torch sits in the middle), speed, an `Area` readout such as `27x3x5`, and the on/off switch. Every click saves at once.
+- New torches start switched off, at the smallest speed step and 3x1x3.
+- Two items, the Accel Clock and Super Accel Clock, and five recipes; see the gallery.
+- Each tier has its own texture and its own spark particles; particles only show while the torch is on.
+
+## How it works
+
+- The torch is a block entity. While on, each tick it calls `LevelRef::block_random_tick` for blocks in its box, the same random tick a chunk gets, so crops, saplings, grass spread, ice and lava behave exactly as they would with a much higher random tick rate.
+- There is a budget so a 27x27x27 torch cannot stall the server: at most about 3000 calls and 3 ms per tick. Areas too large for that are swept with a rotating cursor, so the whole box is covered over a few ticks rather than only its first corner. Measured: 100 ticks still take 5.02 s (20 TPS) with a 27x27x27 torch at 640000%.
+- Settings live in the block entity's data (`active`, `speed`, `sx`, `sy`, `sz`), sync to clients through the update tag, and are re-read from the server when the panel opens, so a torch replaced with `/setblock` never shows stale values.
+
+## Requirements and limits
+
+- Horizon 26.3, API 0.2, side both; native mod, so it compiles on first launch (a few seconds).
+- Built and tested against Horizon build `0a875da` / mixins `e59da90`.
+- Native code runs with your permissions; the source is in the linked repository, and this page's file is the exact source.
+
+## Credits
+
+Inspired by [Torcherino](https://modrinth.com/mod/torcherino) by lukegrahamlandry and [Torcherino (Unofficial)](https://www.mcmod.cn/class/11277.html) by skniro; no code, textures or data from either project is included. Textures and code by Wen."""
+authors = ["Wen"]
+owners = ["wen2863"]
+owner_ids = [159218016]
+license = "MIT"
+source = "https://github.com/wen2863/accel-torch"
+icon = "icons/accel_torch.png"
+categories = ["utility", "game-mechanics"]
+tags = ["tick", "acceleration", "utility", "torcherino", "rust"]
+
+[[versions]]
+version = "0.1.0"
+published = "2026-11-21"
+game = "26.3"
+file = "accel_torch.hmod"
+sha256 = "17c7b4a278d706ef43113c10ceb15f2c1ccce5279989e2e503e1cbf2181a26a1"
+changelog = "首个版本：三档加速火把（100%~640000%）、右键配置范围与速度、三档独立粒子与外观。"
