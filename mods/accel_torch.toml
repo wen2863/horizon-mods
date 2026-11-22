@@ -24,7 +24,7 @@ A percentage is how many extra random ticks each block in the area gets per tick
 ## How it works
 
 - The torch is a block entity. While on, each tick it calls `LevelRef::block_random_tick` for blocks in its box, the same random tick a chunk gets, so crops, saplings, grass spread, ice and lava behave exactly as they would with a much higher random tick rate.
-- One random-tick budget is shared by every torch on the server: at most 3000 calls and 3 ms of work per tick, reset each server tick and enforced across all torches, so stacking them cannot drag the server below 20 TPS. Measured: 5 maxed 27x27x27 super torches still take 5.01-5.04 s per 100 ticks (20 TPS). A torch whose area needs more than the budget sweeps its box over several ticks with its own cursor (hashed from position and tick), so the whole area is still covered.
+- One random-tick budget is shared by every torch on the server: at most 3000 calls and 3 ms of work per tick, reset each server tick and enforced across all torches, so stacking them cannot drag the server below 20 TPS. Measured: 5 maxed 27x27x27 super torches still take 5.01-5.04 s per 100 ticks (20 TPS). That budget is split equally between every torch that ticked in the previous tick, so the first torch in the server's tick order cannot starve the others; a torch whose share is smaller than its area keeps its own cursor and carries on from the cell its last pass stopped at, so the whole area is still covered over a few ticks.
 - Settings live in the block entity's data (`active`, `speed`, `sx`, `sy`, `sz`), sync to clients through the update tag, and are re-read from the server when the panel opens, so a torch replaced with `/setblock` never shows stale values.
 - A change packet is only accepted from a player in the torch's level and within 6 blocks of it; anything else is ignored (with a chat note) rather than failing the payload, which would disconnect the sender.
 
@@ -47,17 +47,9 @@ categories = ["utility", "game-mechanics"]
 tags = ["tick", "acceleration", "utility", "torcherino", "rust"]
 
 [[versions]]
-version = "0.1.0"
-published = "2026-11-21"
-game = "26.3"
-file = "accel_torch.hmod"
-sha256 = "17c7b4a278d706ef43113c10ceb15f2c1ccce5279989e2e503e1cbf2181a26a1"
-changelog = "首个版本：三档加速火把（100%~640000%）、右键配置范围与速度、三档独立粒子与外观。"
-
-[[versions]]
-version = "0.1.1"
+version = "0.1.2"
 published = "2026-11-22"
 game = "26.3"
 file = "accel_torch.hmod"
-sha256 = "c7d53188a76de44f56cb2c07845be5b0bbd631ad908bb884f0e58e708b457f10"
-changelog = "修复审查意见：随机刻预算改为全局共享（每 tick 最多 3000 次调用 / 3 ms，服务端每 tick 重置），27x27x27 堆叠不再拖低 TPS；每个火把用自己的扫描游标；配置包校验发送者所在维度与 6 格距离，越界只提示不断线；.hmod 内含 LICENSE。"
+sha256 = "5dcc42c84174d89d67f6d993b76d8b1dcabf282376a50f8a11167c69ee2a84db"
+changelog = "按第二轮审查修复：随机刻预算按火把均分（上一个 tick 里 tick 过的每个火把各得 1/N），首个火把不再吃光整个预算、与 tick 顺序无关；每个火把保留自己的游标，跨 tick 接着上次停下的格子扫；注册表条目只保留本版本。"
