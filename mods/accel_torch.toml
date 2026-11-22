@@ -20,7 +20,7 @@ A percentage is how many extra random ticks each block in the area gets per tick
 
 - Right-click a torch to open its panel: the reach on X, Y and Z (odd numbers, + and - step by 2), speed, and the on/off switch. Every click saves at once.
 - The panel takes the plain right click, so `sneak + right-click` is what places a block against a torch, the same way a crafting table works.
-- New torches start switched off, at the smallest speed step and 3x1x3.
+- New torches start switched off, at the smallest speed step and a reach of 1 on each axis (3x3x3).
 - Two items, the Accel Clock and Super Accel Clock, and five recipes; see the gallery.
 - Each tier has its own texture and its own spark particles; particles only show while the torch is on.
 
@@ -50,9 +50,9 @@ categories = ["utility", "game-mechanics"]
 tags = ["tick", "acceleration", "utility", "torcherino", "rust"]
 
 [[versions]]
-version = "0.1.5"
+version = "0.2.0"
 published = "2026-11-22"
 game = "26.3"
 file = "accel_torch.hmod"
-sha256 = "539ebffd848cb77fde071d6f79daee6054dd1e5134eda195c752989fb8718242"
-changelog = "范围语义按示意图改正：面板上的数字是每个轴向从火把向外延伸的格数，1 覆盖 3x3x3（火把居中）、3 覆盖 7x7x7，超级火把的 27 覆盖 55x55x55；默认 1，每次 ±2，按等级上限 3 / 9 / 27。实测最宽档 27 格处的树苗会生长、28 格处不会，100 tick 仍是 5.01 秒（20 TPS）。注册表条目只保留本版本。"
+sha256 = "412d04511afb8d883fa9f368f9084bb41dec6148b5ca422001879f089230650f"
+changelog = "代码整合，行为不变：897 行的单文件拆成 tier / settings / screen / torch / budget / spark / util 七个模块加 lib.rs，范围、速度档、面板和共享预算都与 0.1.5 一致，方便以后并入别的模组。实测面板写入 {sx:3, sy:3, sz:1, speed:200, active:1b}；reach 内的树苗约 60 tick 长成，把范围外的树苗放进 reach 后同样长成；最宽档 27（55x55x55）+ 640000% 连续两次 100 tick 都是 5.00 秒（20 TPS）。注册表条目只保留本版本。"
