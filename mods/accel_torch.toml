@@ -17,6 +17,7 @@ A percentage is how many extra random ticks each block in the area gets per tick
 ## Using it
 
 - Right-click a torch to open its panel: X, Y and Z size (odd numbers, the torch sits in the middle), speed, an `Area` readout such as `27x3x5`, and the on/off switch. Every click saves at once.
+- The panel takes the plain right click, so `sneak + right-click` is what places a block against a torch, the same way a crafting table works.
 - New torches start switched off, at the smallest speed step and 3x1x3.
 - Two items, the Accel Clock and Super Accel Clock, and five recipes; see the gallery.
 - Each tier has its own texture and its own spark particles; particles only show while the torch is on.
@@ -47,9 +48,9 @@ categories = ["utility", "game-mechanics"]
 tags = ["tick", "acceleration", "utility", "torcherino", "rust"]
 
 [[versions]]
-version = "0.1.2"
+version = "0.1.3"
 published = "2026-11-22"
 game = "26.3"
 file = "accel_torch.hmod"
-sha256 = "5dcc42c84174d89d67f6d993b76d8b1dcabf282376a50f8a11167c69ee2a84db"
-changelog = "按第二轮审查修复：随机刻预算按火把均分（上一个 tick 里 tick 过的每个火把各得 1/N），首个火把不再吃光整个预算、与 tick 顺序无关；每个火把保留自己的游标，跨 tick 接着上次停下的格子扫；注册表条目只保留本版本。"
+sha256 = "442986c16e9d64faa1ed67ddee874f69530d3f1ec1691a4bcd6b7ceb94d24420"
+changelog = "修复：站在火把旁放不了方块。右键钩子的服务端分支原先无条件取消点击（原版放置正走这次右键），现在只在按住 Shift 时放行：站立右键只开面板，潜行右键只放方块，与原版工作台一致。注册表条目只保留本版本。"
