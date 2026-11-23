@@ -1,7 +1,7 @@
 id = "accel_torch"
 kind = "native-mod"
-name = "加速火把"
-summary = "仿 Torcherino 的三档加速火把：右键调范围与速度（100%~640000%），三档各有独立外观与粒子。"
+name = "加速火把 (Accel Torch)"
+summary = "仿 Torcherino 的三档加速火把：右键调范围与速度（100%~640000%），三档各有独立外观与粒子。Right-click to set reach and speed (100%~640000%): three tiers, each with its own look and particles."
 description = """A toolkit of three accelerating torches for Horizon, inspired by [Torcherino](https://modrinth.com/mod/torcherino). Written in Rust as a native mod: original code and textures, no assets or code taken from the original.
 
 ## The three tiers
