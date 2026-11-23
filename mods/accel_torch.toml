@@ -50,6 +50,14 @@ categories = ["utility", "game-mechanics"]
 tags = ["tick", "acceleration", "utility", "torcherino", "rust"]
 
 [[versions]]
+version = "0.2.1"
+published = "2026-11-23"
+game = "26.3"
+file = "accel_torch.hmod"
+sha256 = "56f3b157bb8e1c550752e8317eb3d694c060bca8bb507c5c01744f75c1ce6da9"
+changelog = "包内元数据改成中英双语（名称与描述），代码与资源不变。The package manifest now names the mod and describes it in English as well as Chinese; src and assets are byte-for-byte 0.2.0."
+
+[[versions]]
 version = "0.2.0"
 published = "2026-11-22"
 game = "26.3"
