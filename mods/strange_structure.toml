@@ -1,0 +1,46 @@
+id = "strange_structure"
+kind = "native-mod"
+name = "异构 (The Strange Structure)"
+summary = "一颗不可破坏、可浮空、可缩放的奇异方块：吸附并转化物品，外观可取任意方块，六面还能自己画。A strange cube that stores and transforms items, wears any block, and paints its six faces."
+description = """A strange cube for Horizon, written in Rust as a native mod: original code and textures.
+
+## What it is
+
+- One block that is always a cube: 0.2 to 5 blocks on a side, in steps of 0.2, solid or passable. It floats where you place it, ignores gravity, and cannot be broken in survival.
+- It stores items: diamonds turn into strange gems in 5 seconds, netherite scraps into strange shards in 8. Each item keeps its own clock while a string of purple orbs runs from the cube to it.
+- It wears any block in the game as its skin, picked from a searchable list of every block, and each of its six faces can be painted on a 32x32 canvas with 16 colours and three brushes (1x1, 3x3, 5x5) plus an eraser.
+- One cube is owed by every hundredth newly generated chunk and placed on the surface a few ticks later.
+
+## Using it
+
+- Ctrl + right click: open the screen (state, size, appearance). The appearance opens a picker page with a search field and a scrollbar, and a paint page with the canvas, the six face tabs, the brushes and the palette.
+- Ctrl + left click with an item in hand: feed it into the cube (newest first, no limit). Empty-handed: take the oldest one back out, dropped at your feet.
+- Ctrl + space: grab the cube; the wheel sets the distance, the arrow keys turn it 10 degrees per press; press again to let go.
+- In creative, breaking any of the invisible filler cells that make up an enlarged cube removes the whole cube, as does breaking the cube itself.
+
+## Notes
+
+- Enlarged cubes collide through invisible filler blocks, because the engine only scans one cell beyond a queried box. The fillers carry the owner's coordinates, are only placed into air, and are removed with the cube.
+- The cube has its own creative tab with the block, the strange gem and the strange shard.
+- Horizon 26.3, API 0.2, side both; native mod, so it compiles on first launch (a few seconds). Built and tested against Horizon build `0a875da` / mixins `e59da90`.
+- Native code runs with your permissions; the source is in the linked repository, and this page's file is the exact source.
+
+## Credits
+
+Code, textures and design by Wen."""
+authors = ["Wen"]
+owners = ["wen2863"]
+owner_ids = [159218016]
+license = "MIT"
+source = "https://github.com/wen2863/strange-structure"
+icon = "icons/strange_structure.png"
+categories = ["decoration", "storage", "utility"]
+tags = ["storage", "decoration", "painting", "building", "rust"]
+
+[[versions]]
+version = "1.0.0"
+published = "2026-11-25"
+game = "26.3"
+file = "strange_structure.hmod"
+sha256 = "b8e5e628fdc0c001fca541091564a735e5dcd12ae44b1cb2659436acf94d07e4"
+changelog = "首个正式版本：核心奇异方块完工。代码整理为 units / paint / chain / render 四个模块加 lib.rs，行为不变，新增 8 个单元测试。First stable release: the strange cube is finished; the code is split into four modules plus lib.rs with no behaviour change, and eight unit tests were added."
